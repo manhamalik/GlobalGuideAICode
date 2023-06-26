@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from pymongo import MongoClient
   
 #Replace <connection_string> with your MongoDB connection string
@@ -61,7 +61,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return 'Hello from Flask!'
+    return render_template('index.html')
 
 
 app.run(host='0.0.0.0', port=81, debug=True)
