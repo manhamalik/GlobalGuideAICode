@@ -17,37 +17,37 @@ nlp = spacy.load("en_core_web_sm")
 
 # Connect to MongoDB
 client = MongoClient("mongodb+srv://manhamalik77:caetoajrTDGWVVLw@cluster0.nfij68g.mongodb.net/?retryWrites=true&w=majority")
-db = client["TravelBot"]
-collection = db["Tinfo"]
+# db = client["TravelBot"]
+# collection = db["Tinfo"]
 
-def get_information(user_input):
-    doc = nlp(user_input)
-    keywords = [token.text.lower() for token in doc]
+# def get_information(user_input):
+#     doc = nlp(user_input)
+#     keywords = [token.text.lower() for token in doc]
 
-    if any(keyword in keywords for keyword in ["hotel", "hotels"]):
-         query = {"category": "hotels"}
-    elif any(keyword in keywords for keyword in ["restaurant", "restaurants"]):
-         query = {"category": "restaurant"}
-    elif any(keyword in keywords for keyword in ["attraction", "attractions"]):
-         query = {"category": "attraction"}
-    elif any(keyword in keywords for keyword in ["shopping", "centers"]):
-         query = {"category": "shopping"}
-    else:
-         return "I'm sorry blah nlah, please specify what you are looking for hotel, "
+#     if any(keyword in keywords for keyword in ["hotel", "hotels"]):
+#          query = {"category": "hotels"}
+#     elif any(keyword in keywords for keyword in ["restaurant", "restaurants"]):
+#          query = {"category": "restaurant"}
+#     elif any(keyword in keywords for keyword in ["attraction", "attractions"]):
+#          query = {"category": "attraction"}
+#     elif any(keyword in keywords for keyword in ["shopping", "centers"]):
+#          query = {"category": "shopping"}
+#     else:
+#          return "I'm sorry blah nlah, please specify what you are looking for hotel, "
     
-    result = collection.find_one(query)
-    if result:
-            return result["message"]
-    else:
-        return "I'm sorry, I couldn't find any information for your request."
+#     result = collection.find_one(query)
+#     if result:
+#             return result["message"]
+#     else:
+#         return "I'm sorry, I couldn't find any information for your request."
 
 
 # #Replace <connection_string> with your MongoDB connection string
 # client = MongoClient("mongodb+srv://manhamalik77:caetoajrTDGWVVLw@cluster0.nfij68g.mongodb.net/?retryWrites=true&w=majority")
 
 # Access your database and collection
-# db = client["TravelBot"]
-# collection = db["Tinfo"]
+db = client["TravelBot"]
+collection = db["Tinfo"]
 
 # Insert a document
 # document = {'name:' "Paris", 'description:' "The capital city of France"}
