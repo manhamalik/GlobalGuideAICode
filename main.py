@@ -49,14 +49,14 @@ def get_information(user_input):
 # db = client["TravelBot"]
 # collection = db["Tinfo"]
 
-# # Insert a document
-# # document = {'name:' "Paris", 'description:' "The capital city of France"}
-# document = {
-#     "name": "France",
-#     "description": "The capital city of France"
-# },
+# Insert a document
+# document = {'name:' "Paris", 'description:' "The capital city of France"}
+document = {
+    "name": "France",
+    "description": "The capital city of France"
+},
 
-# collection.insert_one(document)
+collection.insert_one(document)
 
 # import requests
 
