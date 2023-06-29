@@ -2,6 +2,13 @@ from flask import Flask, render_template
 from pymongo import MongoClient
 import spacy
 
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+
 # Load the spaCy English model
 nlp = spacy.load("en_core_web_sm")
 
@@ -87,12 +94,6 @@ def get_information(user_input):
 #     type: "movie"
 #   }
 # )
-app = Flask(__name__)
-
-
-@app.route('/')
-def index():
-    return render_template('index.html')
 
 
 app.run(host='0.0.0.0', port=81, debug=True)
