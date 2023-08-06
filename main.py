@@ -2,9 +2,13 @@ from flask import Flask, render_template, request, session, jsonify
 from pymongo import MongoClient
 import spacy
 from bson.objectid import ObjectId
+import os
 
 app = Flask(__name__)
 app.secret_key = "ahhh"
+
+# Set the template folder path to the root directory
+app.template_folder = os.path.dirname(os.path.abspath(__file__))
 
 client = MongoClient(
   "mongodb+srv://manhamalik77:caetoajrTDGWVVLw@cluster0.nfij68g.mongodb.net/?retryWrites=true&w=majority"
