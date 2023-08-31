@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <link rel="icon" type="image/png" href="favicon.png">
   <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Convergence" />
   <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Josefin+Sans" />
     <title>GlobalGuideAI</title>
     <style>
       body {
-            /* background-color: #213c4b; */
           background-image: url('https://static.videezy.com/system/resources/thumbnails/000/043/897/original/200206_01_Particle-star-fall-seamless-loop.jpg');
-        
-/* https://images.unsplash.com/photo-1620646233562-f2a31ad24425?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c3RhcnMlMjBibGFja3xlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80 */
         }
       
       @import url(https://fonts.googleapis.com/css?family=Share+Tech+Mono);
@@ -18,31 +16,38 @@
           margin: 0;
           padding: 0;
         }
-      
+
+        :root {
+          --container-width: 55vw;
+        }
         .container {
-            width: 55vw;
+            width: var(--container-width);
             margin: 0 auto;
             padding: 20px;
-            border-radius: 20px;
+            border-radius: 20px 20px 0 0;
             border: 1px solid #ccc; 
             box-sizing: border-box;
             overflow: auto;
             height: 100vh;
             background-color: #000000;
             position: relative;
-            margin-bottom: 20px;
+            min-height: 100vh; 
+            padding-bottom: 60px;
+            z-index: 2; 
+            align-items: center;
+            border-bottom: none;
         }
 
-        .spacer{
+        .spacer {
           height: 1px;
           visibility: hidden;
         }
 
         .message-container {
-            max-height: calc(100vh - 150px); 
-            overflow-y: auto;
+            max-height: calc(100vh - 150px);
             margin-bottom: 10px;
         }
+      
         .chatbot-message {
             background-color: #477BE7;
             color: #ffffff;
@@ -66,60 +71,69 @@
       
         .submit-container {
           border-top: 1px solid #ccc;
-          width: calc(55vw - 60px);
-          padding-top: 5px;
-          padding-bottom: 15px;
+          padding-bottom: 22px;
+          display: flex;
+          flex-direction: row;
           align-items: center;
           justify-content: center;
-          position: absolute;
-          bottom: 0;
-          left: 50%;
-          transform: translateX(-50%); 
+          border: 1px solid #ccc; 
+          border-radius: 0 0 20px 20px;
+          box-sizing: border-box;
+          width: var(--container-width);
+          left: 0;
+          right: 0;
+          padding-top: 15px;
+          position: relative;
+          z-index: 3;
+          margin: 0 auto; 
+          margin-bottom: 20px;
         }
 
-      h1 {
-        color: #ffffff;
-      }
-
-      h3 {
-        color: #ffffff;
-        padding-bottom: 10px;
-        border-bottom: 1px solid #ccc;
-      }
-      
-      #user-message-input {
-        flex: 1;
-        width: calc(100% - 100px);
-        padding: 5px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-    }
-
-      #submit-button {
-        flex: 1;
-        background-color: transparent;
-        border: none;
-        cursor: pointer;
-        position: relative;
-        top: 5px;
-      }
-      
-      .top-container {
-        background-color: #020204;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin-bottom: 20px;
-      }
-      
-      .top-container img {
-        display: block;
-        max-width: 100%;
-        margin-bottom: 20px;
+        #user-message-input {
+          flex: 1;
+          padding: 5px;
+          border-radius: 5px;
+          border: 1px solid #ccc;
+          width: calc(var(--container-width) - 90px); 
+          margin-left: 25px;
         }
-      
-      .top-container .text-container {
+  
+        #submit-button {
+          flex: 0;
+          background-color: transparent;
+          border: none;
+          cursor: pointer;
+          position: relative;
+          top: 5px;
+          z-index: 3;
+        }
+
+        h1 {
+          color: #ffffff;
+        }
+  
+        h3 {
+          color: #ffffff;
+          padding-bottom: 10px;
+          border-bottom: 1px solid #ccc;
+        }
+        
+        .top-container {
+          background-color: #020204;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+          margin-bottom: 20px;
+         }
+        
+        .top-container img {
+          display: block;
+          max-width: 100%;
+          margin-bottom: 20px;
+        }
+        
+        .top-container .text-container {
           display: flex;
           flex-direction: column;
           justify-content: center;
@@ -130,94 +144,94 @@
           margin-right: 50px;
           text-align: center;
           color: #FFF;
-      }
-
-      .top-container h1 {
+        }
+  
+        .top-container h1 {
           font-size: 24px;
           margin-bottom: 10px;
-        font-family: Josefin Sans;
-      }
-
-      .top-container h2 {
-          font-size: 18px;
-          font-family: "Share Tech Mono", monospace;
-          visibility: hidden;                
-          overflow: hidden; /* Ensures the content is not revealed until the animation */
-          border-right: .15em solid orange;
-          white-space: nowrap; /* Keeps the content on a single line */
-          margin: 0 auto; /* Gives that scrolling effect as the typing happens */
-          letter-spacing: .15em; /* Adjust as needed */
-          animation: 
-          typing 3.5s steps(40, end) 2.5s forwards,
-          blink-caret .75s step-end infinite 2.5s;
-      }
-      /* The typing effect */
-      @keyframes typing {
-        from { width: 0; visibility: visible;}
-        to { width: 100%; visibility: visible;}
-      }
-
-      /* The typewriter cursor effect */
-      @keyframes blink-caret {
-        from, to { border-color: transparent }
-        50% { border-color: orange; }
-      }
-
-      /* decode effect */
-      .decode-text {
-        width: 100%;
-        font-size: 30px;
-        text-align: center;
-      }
-      .space {
-        display: inline-block;
-        width: 10px;
-      }
-      .text-animation {
-        display: inline-block;
-        position: relative;
-        color: transparent;
-        text-transform: uppercase;
-        &:before {
-          content: "";
-          color: white;
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          background: white;
-          width: 0;
-          height: 1.2em;
-          -webkit-transform: translate(-50%, -55%);
-          -ms-transform: translate(-50%, -55%);
-          transform: translate(-50%, -55%);
+          font-family: Josefin Sans;
         }
 
-        &.state-1 {
+        .top-container h2 {
+            font-size: 18px;
+            font-family: "Share Tech Mono", monospace;
+            visibility: hidden;                
+            overflow: hidden; /* Ensures the content is not revealed until the animation */
+            border-right: .15em solid orange;
+            white-space: nowrap; /* Keeps the content on a single line */
+            margin: 0 auto; /* scrolling effect as the typing happens */
+            letter-spacing: .15em;
+            animation: 
+            typing 3.5s steps(40, end) 2.5s forwards,
+            blink-caret .75s step-end infinite 2.5s;
+        }
+        
+        /* The typing effect */
+        @keyframes typing {
+          from { width: 0; visibility: visible;}
+          to { width: 100%; visibility: visible;}
+        }
+  
+        /* The typewriter cursor effect */
+        @keyframes blink-caret {
+          from, to { border-color: transparent }
+          50% { border-color: orange; }
+        }
+
+        /* decode effect */
+        .decode-text {
+          width: 100%;
+          font-size: 30px;
+          text-align: center;
+        }
+        
+        .space {
+          display: inline-block;
+          width: 10px;
+        }
+      
+        .text-animation {
+          display: inline-block;
+          position: relative;
+          color: transparent;
+          text-transform: uppercase;
           &:before {
-            width: 1px;
+            content: "";
+            color: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            background: white;
+            width: 0;
+            height: 1.2em;
+            -webkit-transform: translate(-50%, -55%);
+            -ms-transform: translate(-50%, -55%);
+            transform: translate(-50%, -55%);
           }
-        }
-        &.state-2 {
-          &:before {
-            width: 0.9em;
-          }
-        }
-        &.state-3 {
-          color: white;
+
+          &.state-1 {
             &:before {
-              width: 0;
+              width: 1px;
             }
+          }
+          &.state-2 {
+            &:before {
+              width: 0.9em;
+            }
+          }
+          &.state-3 {
+            color: white;
+              &:before {
+                width: 0;
+              }
+          }
         }
-      }
     </style>
 </head>
   
 <body onload=decodeText();>
-   <!-- <img src="global.gif" alt="Globe Gif"> -->
-  <!-- <img src="images/global.gif" alt="GIF image" style="width: 100%; position: absolute; top: 0;"> -->
   <div class="top-container">
     <div class="text-container">
-          <!-- <center> <h1>Hello, Welcome to GlobalGuideAI!</h1> -->
       <!-- decode effect -->
       <div class="decode-text">
   	  <div class="text-animation">G</div>
@@ -253,15 +267,15 @@
                 <div class="{{ message[0] }}-message">{{ message[1] }}</div>
             {% endfor %}
         </div>
-    <center> <div class="submit-container">
+      </div>
+     <div class="submit-container">
       <form id="message-form" action="/send-message" method="POST">
         <input type="text" id="user-message-input" name="user_message" placeholder="Enter your message">
         <button type="submit" id="submit-button">
           <img src="https://img.freepik.com/free-icon/_318-157681.jpg" alt="Submit" style="width: 20px; height: 25px;">
-          <!-- https://img.freepik.com/free-icon/sent_318-879118.jpg?w=360 -->
         </button>
       </form>
-    </div>
+    
   </div>
   <div class="spacer"></div>
 
@@ -307,11 +321,9 @@ function sendMessageToChatbot(message) {
     xhr.send(data);
 }   
 
-    // decode effect on title experiment
-    /* ------------------------------------------------------------------------ *  
-4 states per letter: Transparent | Line | Block | Visible.
-These states are shuffled for a unique "decode" effect each time.
-* ------------------------------------------------------------------------ */
+// decode effect on title
+// 4 states per letter: Transparent | Line | Block | Visible.
+// These states are shuffled for a unique "decode" effect each time.
 
 function decodeText(){
     var text = document.getElementsByClassName('decode-text')[0];
@@ -370,9 +382,9 @@ function thirdStages(child){
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
 
-    // While there remain elements to shuffle...
+    // While there remain elements to shuffle
     while (0 !== currentIndex) {
-        // Pick a remaining element...
+        // Pick a remaining element
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex -= 1;
 

@@ -42,10 +42,6 @@ def send_message():
     append_chatbot_message(
       "Please choose one of the following categories: hotels, restaurants, attractions, shopping centers."
     )
-  # if latest_chatbot_message.split(' ')[0] == "Hotels":
-  #   append_chatbot_message(
-  #     "Would you like to learn more aobut a specific hotel? If so, which one?"
-  #   )
   return jsonify({'reply': chatbot_reply})
 
 def append_user_message(message):
@@ -83,11 +79,8 @@ def get_information(user_input, chatbot_message):
       document_id = "64ab9a376e26def1c75f4cc0"
 
     session['document_id'] = document_id
-
-    
     
     return "Would you like to learn more about the hotels, restaurants, attractions, or shopping centers?"
-
 
  # Check if the chatbot has prompted the user to choose a category
   if chatbot_message == "Please choose one of the following categories: hotels, restaurants, attractions, shopping centers.":
@@ -101,7 +94,7 @@ def get_information(user_input, chatbot_message):
         if any(keyword in keywords for keyword in ["thank", "thanks"]):
           output.append("You're welcome! Please let me know if there's anything more I can help you with.")
           
-        if any(keyword in keywords for keyword in ["okay", "cool"]):
+        if any(keyword in keywords for keyword in ["okay", "ok", "amazing", "cool"]):
           output.append("Great, please let me know if there's anything more I can help you with.") 
        
         # For all of the hotels in that city
@@ -128,20 +121,20 @@ def get_information(user_input, chatbot_message):
           if shopping:
             output.append("Shopping Centers: \n" + shopping + "\n\nWould you like to learn more about a specific shopping center? If so, which one?")
 
-      #hotel 1 links
+        #hotel 1 links
         if any(keyword in keywords for keyword in ["ritz", "burj", "langham", "savoy", "hassler", "peninsula"]):
           links = document.get("hotel1_links")
           if links:
             output.append(links)
             
         #hotel 2 links
-        if any(keyword in keywords for keyword in ["four", "seasons" "carlton", "pera", "sultanahmet", "atlantis", "palm", "shangri", "crown", "regis"]):
+        if any(keyword in keywords for keyword in ["four", "seasons" "carlton", "pera", "sultanahmet", "atlantis", "palm", "shangri", "crown", "regis", "hyatt", "park"]):
           links = document.get("hotel2_links")
           if links:
             output.append(links)
           
         #hotel 3 links
-        if any(keyword in keywords for keyword in ["plaza", "athénée", "athenee", "jumeirah", "beach", "la", "petite", "maison", "fairmont", "royal", "york", "park", "hyatt", "new", "ciragan", "kempinski", "cricket", "ground", "mcg", "claridge", "claridges", "claridge's", "st.", "regis"]):
+        if any(keyword in keywords for keyword in ["plaza", "athénée", "athenee", "jumeirah", "beach", "la", "petite", "maison", "fairmont", "royal", "york", "new", "ciragan", "kempinski", "cricket", "ground", "mcg", "claridge", "claridges", "claridge's", "st.", "regis"]):
           links = document.get("hotel3_links")
           if links:
             output.append(links)
@@ -152,7 +145,6 @@ def get_information(user_input, chatbot_message):
           if links:
             output.append(links)
 
-        
          #restaurant 1 links
         if any(keyword in keywords for keyword in ["l'ambroisie", "ambroisie", "pierchic", "canoe", "sukiyabashi" "jiro", "mikla", "attica", "ledbury", "per", "se", "pergola"]):
           links = document.get("restaurant1_links")
@@ -229,8 +221,6 @@ def get_information(user_input, chatbot_message):
           return "\n".join(output)
         else:
           return "Sorry, I couldn't find any information for that category."
-
-
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=81, debug=True)
