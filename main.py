@@ -55,6 +55,35 @@ def get_information(user_input, chatbot_message):
   doc = nlp(user_input)
   keywords = [token.text.lower() for token in doc]
 
+  # Small talk fallbacks (responding to casual inquiries)
+  if any(keyword in keywords for keyword in ["hi", "hello", "hey", "how are you", "what's up"]):
+      return "Hi there! I'm here to help you explore the world. Just type in a city name to get started."
+  
+  if any(keyword in keywords for keyword in ["bye", "goodbye", "see you"]):
+      return "Goodbye! Hope to see you soon on your next adventure."
+  
+  # New fallbacks for travel preferences
+  if any(keyword in keywords for keyword in ["budget", "luxury", "adventure", "family", "romantic"]):
+      if "budget" in keywords:
+          return "Looking for budget-friendly options? I can help you find affordable places to stay and things to do."
+      elif "luxury" in keywords:
+          return "Interested in luxury travel? I can recommend premium hotels and exclusive experiences."
+      elif "adventure" in keywords:
+          return "Seeking adventure? Let me find you thrilling outdoor activities and exciting destinations."
+  
+  # New fallback for travel advice or tips
+  if any(keyword in keywords for keyword in ["tips", "advice", "help", "packing", "visa", "best", "time"]):
+      if "packing" in keywords:
+          return "Here’s a quick packing tip: Always roll your clothes to save space! Need more advice?"
+      elif "visa" in keywords:
+          return "Visa requirements can vary. Do you need help finding out about visa requirements for a specific country?"
+      elif "best" in keywords and "time" in keywords:
+          return "The best time to visit depends on the destination. Let me know where you're heading, and I can offer advice."
+
+  # Clarification fallbacks
+  if "not" in keywords and "sure" in keywords:
+      return "Could you please clarify your request or provide more details about what you're looking for? For example, you can ask about hotels, restaurants, or attractions in a city."
+
   if any(keyword in keywords for keyword in [
       "paris", "dubai", "toronto", "tokyo", "turkey", "melbourne", "london",
       "nyc", "rome"
@@ -164,7 +193,7 @@ def get_information(user_input, chatbot_message):
             output.append(links)
 
         #restaurant 4 links
-        if any(keyword in keywords for keyword in [ "peti", "jules", "verne", "mosphere", "byblos", "sunset", "grill", "bar", "cumulus", "Inc.", "dinner", "heston", "blumenthal", "peter", "luger", "steak", "armando", "al", "pantheon"]):
+        if any(keyword in keywords for keyword in [ "peti", "jules", "verne", "mosphere", "byblos", "sunset", "grill", "bar", "cumulus", "Inc.", "dinner", "heston", "blumenthal", "peter", "luger", "steak", "armando", "al", "pantheon", "den"]):
           links = document.get("restaurant4_links")
           if links:
             output.append(links)
@@ -221,6 +250,15 @@ def get_information(user_input, chatbot_message):
           return "\n".join(output)
         else:
           return "Sorry, I couldn't find any information for that category."
+
+    # Check if the user's input contains a valid city, if not return city-specific fallback
+  if not any(keyword in keywords for keyword in [
+      "paris", "dubai", "toronto", "tokyo", "turkey", "melbourne", "london", "nyc", "rome"
+  ]):
+      return "Please enter a valid city from the list: Paris, Dubai, Toronto, Tokyo, Turkey, Melbourne, London, NYC, Rome."
+
+  # General fallback response
+  return "Sorry, I couldn't understand that. Could you please clarify your request?"
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=81, debug=True)
